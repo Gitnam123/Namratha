@@ -6,6 +6,7 @@ module "resource_group" {
   tags     = var.tags
 }
 
+
 module "vnet" {
   source = "../../modules/networking/vnet"
 
@@ -17,6 +18,7 @@ module "vnet" {
 
   tags = var.tags
 }
+
 
 module "subnet" {
   for_each = var.subnets
@@ -32,6 +34,7 @@ module "subnet" {
   ]
 }
 
+
 module "nsg" {
   source = "../../modules/networking/nsg"
 
@@ -44,54 +47,71 @@ module "nsg" {
   tags = var.tags
 }
 
-module "public_ip" {
-  source = "../../modules/networking/public-ip"
 
-  name                = var.public_ip_name
-  location            = var.location
+# ============================================================
+# VM COUNT MODULE
+# ============================================================
+
+module "vm_count" {
+  source = "../../modules/compute/vm-count"
+
   resource_group_name = module.resource_group.name
-
-  tags = var.tags
-}
-
-module "nic" {
-  source = "../../modules/compute/nic"
-
-  name                = var.nic_name
   location            = var.location
-  resource_group_name = module.resource_group.name
 
   subnet_id = module.subnet["devops"].id
 
-  public_ip_id              = module.public_ip.id
-  network_security_group_id = module.nsg.id
+  vm_count       = var.vm_count
+  vm_name_prefix = "${var.vm_name}-count"
 
-  tags = var.tags
-}
+  vm_size = var.vm_size
 
-module "vm" {
-  source = "../../modules/compute/vm"
-
-  name                = var.vm_name
-  location            = var.location
-  resource_group_name = module.resource_group.name
-
-  vm_size        = var.vm_size
   admin_username = var.admin_username
   admin_password = var.admin_password
 
-  network_interface_ids = [
-    module.nic.id
-  ]
+  image_publisher = "Canonical"
+  image_offer     = "ubuntu-24_04-lts"
+  image_sku       = "server"
+  image_version   = "latest"
 
-  os_disk_type = "Standard_LRS"
+  network_security_group_id = module.nsg.id
+}
 
-  image = {
-    publisher = "Canonical"
-    offer     = "ubuntu-24_04-lts"
-    sku       = "server"
-    version   = "latest"
-  }
 
-  tags = var.tags
+# ============================================================
+# VM FOR_EACH MODULE
+# ============================================================
+
+module "vm_foreach" {
+  source = "../../modules/compute/vm-foreach"
+
+  resource_group_name = module.resource_group.name
+  location            = var.location
+
+  subnet_id = module.subnet["devops"].id
+
+  vm_config = var.vm_foreach
+
+  vm_name_prefix = "${var.vm_name}-foreach"
+
+  admin_username = var.admin_username
+  admin_password = var.admin_password
+
+  image_publisher = "Canonical"
+  image_offer     = "ubuntu-24_04-lts"
+  image_sku       = "server"
+  image_version   = "latest"
+
+  network_security_group_id = module.nsg.id
+}
+
+
+# ============================================================
+# NGINX
+# Install only on COUNT VM 1
+# ============================================================
+
+module "nginx" {
+  source = "../../modules/compute/scripts"
+
+  vm_id = module.vm_count.vm_ids[0]
 }

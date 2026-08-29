@@ -1,58 +1,39 @@
-output "resource_group_name" {
-  description = "Resource Group name"
-  value       = module.resource_group.name
+output "count_vm_ids" {
+  description = "VM IDs created using count"
+  value       = module.vm_count.vm_ids
 }
 
-output "resource_group_id" {
-  description = "Resource Group ID"
-  value       = module.resource_group.id
+output "count_vm_names" {
+  description = "VM names created using count"
+  value       = module.vm_count.vm_names
 }
 
-output "resource_group_location" {
-  description = "Resource Group location"
-  value       = module.resource_group.location
+output "count_private_ip_addresses" {
+  description = "Private IP addresses created using count"
+  value       = module.vm_count.private_ip_addresses
 }
 
-output "vnet_name" {
-  description = "Virtual Network name"
-  value       = module.vnet.name
+output "count_public_ip_addresses" {
+  description = "Public IP addresses created using count"
+  value       = module.vm_count.public_ip_addresses
 }
 
-output "vnet_id" {
-  description = "Virtual Network ID"
-  value       = module.vnet.id
+output "foreach_vm_ids" {
+  description = "VM IDs created using for_each"
+  value       = module.vm_foreach.vm_ids
 }
 
-output "subnet_ids" {
-  description = "Subnet IDs"
-
-  value = {
-    for name, subnet in module.subnet :
-    name => subnet.id
-  }
+output "foreach_vm_names" {
+  description = "VM names created using for_each"
+  value       = module.vm_foreach.vm_names
 }
 
-output "nsg_name" {
-  description = "Network Security Group name"
-  value       = module.nsg.name
+output "foreach_private_ip_addresses" {
+  description = "Private IP addresses created using for_each"
+  value       = module.vm_foreach.private_ip_addresses
 }
 
-output "public_ip_address" {
-  description = "Public IP address"
-  value       = module.public_ip.ip_address
-}
-
-output "nic_name" {
-  description = "Network Interface name"
-  value       = module.nic.name
-}
-
-output "vm_name" {
-  description = "Virtual Machine name"
-  value       = module.vm.name
-}
-
-output "vm_id" {
-  description = "Virtual Machine ID"
-  value       = module.vm.id
+output "foreach_public_ip_addresses" {
+  description = "Public IP addresses created using for_each"
+  value       = module.vm_foreach.public_ip_addresses
 }

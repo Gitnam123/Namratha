@@ -1,12 +1,26 @@
-variable "location" {
-  description = "Azure region"
-  type        = string
-}
+# ============================================================
+# RESOURCE GROUP
+# ============================================================
 
 variable "resource_group_name" {
   description = "Resource Group name"
   type        = string
 }
+
+
+# ============================================================
+# AZURE LOCATION
+# ============================================================
+
+variable "location" {
+  description = "Azure region"
+  type        = string
+}
+
+
+# ============================================================
+# VIRTUAL NETWORK
+# ============================================================
 
 variable "vnet_name" {
   description = "Virtual Network name"
@@ -18,6 +32,11 @@ variable "vnet_address_space" {
   type        = list(string)
 }
 
+
+# ============================================================
+# SUBNET
+# ============================================================
+
 variable "subnets" {
   description = "Subnet configuration"
 
@@ -26,6 +45,11 @@ variable "subnets" {
     address_prefix = string
   }))
 }
+
+
+# ============================================================
+# NETWORK SECURITY GROUP
+# ============================================================
 
 variable "nsg_name" {
   description = "Network Security Group name"
@@ -47,18 +71,33 @@ variable "security_rules" {
   }))
 }
 
+
+# ============================================================
+# PUBLIC IP
+# ============================================================
+
 variable "public_ip_name" {
-  description = "Public IP name"
+  description = "Base Public IP name"
   type        = string
 }
+
+
+# ============================================================
+# NETWORK INTERFACE
+# ============================================================
 
 variable "nic_name" {
-  description = "Network Interface name"
+  description = "Base Network Interface name"
   type        = string
 }
 
+
+# ============================================================
+# VIRTUAL MACHINE
+# ============================================================
+
 variable "vm_name" {
-  description = "Virtual Machine name"
+  description = "Base Virtual Machine name"
   type        = string
 }
 
@@ -66,6 +105,7 @@ variable "vm_size" {
   description = "Virtual Machine size"
   type        = string
 }
+
 
 variable "admin_username" {
   description = "Linux administrator username"
@@ -77,6 +117,35 @@ variable "admin_password" {
   type        = string
   sensitive   = true
 }
+
+
+# ============================================================
+# COUNT
+# ============================================================
+
+variable "vm_count" {
+  description = "Number of VMs to create using count"
+  type        = number
+  default     = 2
+}
+
+
+# ============================================================
+# FOR_EACH
+# ============================================================
+
+variable "vm_foreach" {
+  description = "Configuration for VMs to create using for_each"
+
+  type = map(object({
+    size = string
+  }))
+}
+
+
+# ============================================================
+# TAGS
+# ============================================================
 
 variable "tags" {
   description = "Common resource tags"
