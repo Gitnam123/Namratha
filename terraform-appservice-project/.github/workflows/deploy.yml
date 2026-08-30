@@ -82,12 +82,12 @@ jobs:
         run: |
           az group create \
             --name rg-terraform-state \
-            --location southindia
+            --location IndiaSouthCentral
 
           az storage account create \
             --name stterraformstatepgsn \
             --resource-group rg-terraform-state \
-            --location southindia \
+            --location IndiaSouthCentral \
             --sku Standard_LRS \
             --kind StorageV2
 
