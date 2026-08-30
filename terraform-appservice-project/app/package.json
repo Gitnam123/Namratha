@@ -1,0 +1,15 @@
+{
+  "name": "azure-managed-identity-api",
+  "version": "1.0.0",
+  "description": "Sample Node.js API using Azure SQL and Managed Identity",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.4.1",
+    "applicationinsights": "^3.9.1",
+    "express": "^4.21.2",
+    "mssql": "^11.0.1"
+  }
+}
