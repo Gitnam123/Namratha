@@ -117,9 +117,24 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
         run: terraform validate
 
+      - name: Verify Terraform variables
+        working-directory: ${{ env.TF_WORKING_DIR }}
+        run: |
+          echo "Terraform working directory:"
+          pwd
+
+          echo "Files:"
+          ls -la
+
+          echo "terraform.tfvars exists:"
+          test -f terraform.tfvars && echo "YES" || echo "NO"
+
+          echo "App Service variable:"
+          grep '^app_service_name' terraform.tfvars
+
       - name: Terraform Plan
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform plan -out=tfplan
+        run: terraform plan -var-file="terraform.tfvars" -out=tfplan
 
       - name: Terraform Apply
         working-directory: ${{ env.TF_WORKING_DIR }}
