@@ -1,6 +1,6 @@
 resource "azurerm_log_analytics_workspace" "this" {
   name                = var.log_analytics_workspace_name
-  location            = var.location
+  location            = var.log_analytics_location
   resource_group_name = var.resource_group_name
 
   sku               = "PerGB2018"

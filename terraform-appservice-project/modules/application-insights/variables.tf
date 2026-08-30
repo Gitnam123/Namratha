@@ -17,3 +17,7 @@ variable "log_analytics_workspace_name" {
   description = "Name of Log Analytics Workspace"
   type        = string
 }
+variable "log_analytics_location" {
+  description = "Azure region for Log Analytics Workspace"
+  type        = string
+}

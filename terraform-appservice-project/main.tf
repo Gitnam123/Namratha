@@ -23,6 +23,7 @@ module "application_insights" {
 
   application_insights_name    = var.application_insights_name
   log_analytics_workspace_name = var.log_analytics_workspace_name
+  log_analytics_location       = "Central India"
 }
 module "app_service" {
   source = "./modules/app-service"
