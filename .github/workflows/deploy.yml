@@ -134,7 +134,11 @@ jobs:
 
       - name: Terraform Plan
         working-directory: ${{ env.TF_WORKING_DIR }}
-        run: terraform plan -var-file="terraform.tfvars" -out=tfplan
+        run: |
+          terraform plan \
+          -var-file="terraform.tfvars" \
+          -var="terraform_principal_id=${{ secrets.AZURE_PRINCIPAL_ID }}" \
+          -out=tfplan
 
       - name: Terraform Apply
         working-directory: ${{ env.TF_WORKING_DIR }}
