@@ -8,7 +8,7 @@ resource "azurerm_key_vault" "this" {
   sku_name = "standard"
 
   rbac_authorization_enabled    = true
-  public_network_access_enabled = false
+  public_network_access_enabled = true
   purge_protection_enabled      = false
 }
 
