@@ -24,7 +24,8 @@ resource "azurerm_linux_web_app" "this" {
 
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY = var.application_insights_instrumentation_key
-    SCM_DO_BUILD_DURING_DEPLOYMENT = "true"
+    SQL_SERVER                     = var.sql_server
+    SQL_DATABASE                   = var.sql_database
   }
 
   site_config {

@@ -39,3 +39,12 @@ variable "application_insights_instrumentation_key" {
   type        = string
   sensitive   = true
 }
+variable "sql_server" {
+  description = "Azure SQL Server fully qualified domain name"
+  type        = string
+}
+
+variable "sql_database" {
+  description = "Azure SQL Database name"
+  type        = string
+}

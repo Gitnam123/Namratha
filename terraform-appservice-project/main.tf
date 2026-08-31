@@ -39,6 +39,9 @@ module "app_service" {
   sku_name = var.app_service_sku
 
   application_insights_instrumentation_key = module.application_insights.instrumentation_key
+
+  sql_server   = "${var.sql_server_name}.database.windows.net"
+  sql_database = var.sql_database_name
 }
 module "key_vault" {
   source = "./modules/key-vault"
