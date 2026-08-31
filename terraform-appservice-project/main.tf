@@ -50,8 +50,9 @@ module "key_vault" {
   location            = var.location
 
   key_vault_name = var.key_vault_name
+  tenant_id      = data.azurerm_client_config.current.tenant_id
 
-  tenant_id = data.azurerm_client_config.current.tenant_id
+  terraform_principal_id = var.terraform_principal_id
 
   application_insights_instrumentation_key = module.application_insights.instrumentation_key
 }

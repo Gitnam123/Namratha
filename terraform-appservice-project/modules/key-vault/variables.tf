@@ -22,3 +22,7 @@ variable "application_insights_instrumentation_key" {
   type        = string
   sensitive   = true
 }
+variable "terraform_principal_id" {
+  description = "Principal ID used by Terraform to manage Key Vault secrets"
+  type        = string
+}

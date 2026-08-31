@@ -84,3 +84,7 @@ variable "application_insights_name" {
 variable "log_analytics_workspace_name" {
   type = string
 }
+variable "terraform_principal_id" {
+  description = "Principal ID used by GitHub Actions to manage Azure resources"
+  type        = string
+}
