@@ -29,11 +29,11 @@ resource "azurerm_linux_web_app" "this" {
   }
 
   site_config {
-  always_on              = true
-  vnet_route_all_enabled = true
+    always_on              = true
+    vnet_route_all_enabled = true
 
-  application_stack {
-    node_version = "20-lts"
+    application_stack {
+      node_version = "20-lts"
+    }
   }
-}
 }
