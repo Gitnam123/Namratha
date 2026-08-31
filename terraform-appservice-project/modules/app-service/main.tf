@@ -23,7 +23,7 @@ resource "azurerm_linux_web_app" "this" {
   virtual_network_subnet_id = var.app_service_subnet_id
 
   app_settings = {
-    APPINSIGHTS_INSTRUMENTATIONKEY = var.application_insights_instrumentation_key
+    APPINSIGHTS_INSTRUMENTATIONKEY = "@Microsoft.KeyVault(SecretUri=${var.application_insights_instrumentation_key_secret_uri})"
     SQL_SERVER                     = var.sql_server
     SQL_DATABASE                   = var.sql_database
   }

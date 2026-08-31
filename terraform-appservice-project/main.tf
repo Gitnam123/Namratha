@@ -38,7 +38,7 @@ module "app_service" {
 
   sku_name = var.app_service_sku
 
-  application_insights_instrumentation_key = module.application_insights.instrumentation_key
+  application_insights_instrumentation_key_secret_uri = module.key_vault.application_insights_instrumentation_key_secret_uri
 
   sql_server   = "${var.sql_server_name}.database.windows.net"
   sql_database = var.sql_database_name
@@ -53,7 +53,12 @@ module "key_vault" {
 
   tenant_id = data.azurerm_client_config.current.tenant_id
 
-  app_service_principal_id = module.app_service.principal_id
+  application_insights_instrumentation_key = module.application_insights.instrumentation_key
+}
+resource "azurerm_role_assignment" "app_service_key_vault_secrets_user" {
+  scope                = module.key_vault.key_vault_id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = module.app_service.principal_id
 }
 module "private_endpoint" {
   source = "./modules/private-endpoint"
@@ -82,9 +87,7 @@ module "sql" {
   sql_database_name     = var.sql_database_name
   sql_database_sku_name = var.sql_database_sku_name
 
-  sql_admin_login_name = var.sql_admin_login_name
-  sql_admin_object_id  = var.sql_admin_object_id
-  sql_admin_tenant_id  = var.sql_admin_tenant_id
-
-  app_service_principal_id = module.app_service.principal_id
+  app_service_identity_name = module.app_service.app_service_name
+  app_service_principal_id  = module.app_service.principal_id
+  sql_admin_tenant_id       = data.azurerm_client_config.current.tenant_id
 }

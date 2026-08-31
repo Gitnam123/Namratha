@@ -23,22 +23,15 @@ variable "sql_database_sku_name" {
   type        = string
 }
 
-variable "sql_admin_login_name" {
-  description = "SQL administrator Entra login name"
-  type        = string
-}
-
-variable "sql_admin_object_id" {
-  description = "Microsoft Entra object ID of the SQL administrator"
-  type        = string
-}
-
-variable "sql_admin_tenant_id" {
-  description = "Microsoft Entra tenant ID"
-  type        = string
-}
-
 variable "app_service_principal_id" {
   description = "App Service Managed Identity principal ID"
+  type        = string
+}
+variable "app_service_identity_name" {
+  description = "Name of the App Service Managed Identity"
+  type        = string
+}
+variable "sql_admin_tenant_id" {
+  description = "Microsoft Entra tenant ID"
   type        = string
 }

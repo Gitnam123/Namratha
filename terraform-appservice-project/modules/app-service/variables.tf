@@ -34,11 +34,6 @@ variable "dotnet_version" {
   type        = string
   default     = "8.0"
 }
-variable "application_insights_instrumentation_key" {
-  description = "Application Insights instrumentation key"
-  type        = string
-  sensitive   = true
-}
 variable "sql_server" {
   description = "Azure SQL Server fully qualified domain name"
   type        = string
@@ -46,5 +41,9 @@ variable "sql_server" {
 
 variable "sql_database" {
   description = "Azure SQL Database name"
+  type        = string
+}
+variable "application_insights_instrumentation_key_secret_uri" {
+  description = "Key Vault secret URI for the Application Insights instrumentation key"
   type        = string
 }

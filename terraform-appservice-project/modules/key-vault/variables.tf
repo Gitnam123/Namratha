@@ -17,8 +17,8 @@ variable "tenant_id" {
   description = "Azure tenant ID"
   type        = string
 }
-
-variable "app_service_principal_id" {
-  description = "Principal ID of the App Service Managed Identity"
+variable "application_insights_instrumentation_key" {
+  description = "Application Insights instrumentation key to store in Key Vault"
   type        = string
+  sensitive   = true
 }
